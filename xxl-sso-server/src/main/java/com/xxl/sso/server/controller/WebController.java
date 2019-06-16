@@ -11,6 +11,7 @@ import com.xxl.sso.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,8 +53,8 @@ public class WebController {
      */
     @RequestMapping(Conf.SSO_LOGIN)
     public String login(Model model, HttpServletRequest request, HttpServletResponse response) {
-
         // login check
+        System.out.println("login");
         XxlSsoUser xxlUser = SsoWebLoginHelper.loginCheck(request, response);
 
         if (xxlUser != null) {
@@ -92,7 +93,7 @@ public class WebController {
                         String username,
                         String password,
                         String ifRemember) {
-
+        System.out.println("doLogin");
         boolean ifRem = (ifRemember!=null&&"on".equals(ifRemember))?true:false;
 
         // valid login

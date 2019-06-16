@@ -29,7 +29,6 @@ public class JedisUtil {
 
     public static void init(String address) {
         JedisUtil.address = address;
-
         getInstance();
     }
 
@@ -74,14 +73,13 @@ public class JedisUtil {
                             config.setTimeBetweenEvictionRunsMillis(30000);     // 表示idle object evitor两次扫描之间要sleep的毫秒数
                             config.setNumTestsPerEvictionRun(10);               // 表示idle object evitor每次扫描的最多的对象数
                             config.setMinEvictableIdleTimeMillis(60000);        // 表示一个对象至少停留在idle状态的最短时间，然后才能被idle object evitor扫描并驱逐；这一项只有在timeBetweenEvictionRunsMillis大于0时才有意义
-
-
                             // JedisShardInfo List
                             List<JedisShardInfo> jedisShardInfos = new LinkedList<JedisShardInfo>();
 
                             String[] addressArr = address.split(",");
                             for (int i = 0; i < addressArr.length; i++) {
                                 JedisShardInfo jedisShardInfo = new JedisShardInfo(addressArr[i]);
+                                jedisShardInfo.setPassword("123456");
                                 jedisShardInfos.add(jedisShardInfo);
                             }
                             shardedJedisPool = new ShardedJedisPool(config, jedisShardInfos);
